@@ -203,6 +203,11 @@ class Settings(BaseSettings):
         ),
     )
 
+    filter_by_pareto_front: bool = Field(
+        default=True,
+        description="Whether to filter presented results by pareto front.",
+    )
+
     n_trials: int = Field(
         default=200,
         description="Number of abliteration trials to run during optimization.",

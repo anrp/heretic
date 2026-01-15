@@ -616,7 +616,7 @@ def run():
         best_trials = []
         for trial in sorted_trials:
             kl_divergence = trial.user_attrs["kl_divergence"]
-            if kl_divergence < min_divergence:
+            if not settings.filter_by_pareto_front or kl_divergence < min_divergence:
                 min_divergence = kl_divergence
                 best_trials.append(trial)
 
@@ -636,6 +636,13 @@ def run():
             Choice(
                 title="Continue optimization (run more trials)",
                 value="continue",
+            )
+        )
+
+        choices.append(
+            Choice(
+                title="Toggle pareto front filter",
+                value="toggle_pareto",
             )
         )
 
@@ -690,6 +697,10 @@ def run():
 
             elif trial is None or trial == "":
                 return
+
+            elif trial == "toggle_pareto":
+                settings.filter_by_pareto_front = not settings.filter_by_pareto_front
+                break
 
             print()
             print(f"Restoring model from trial [bold]{trial.user_attrs['index']}[/]...")
