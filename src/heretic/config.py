@@ -203,6 +203,18 @@ class Settings(BaseSettings):
         ),
     )
 
+    max_weight: float = Field(
+        default=2.0,
+        description=(
+            "Maximum abliteration weight"
+        ),
+    )
+
+    max_weight_log: bool = Field(
+        default=True,
+        description="Abliteration max weight is log",
+    )
+
     filter_by_pareto_front: bool = Field(
         default=True,
         description="Whether to filter presented results by pareto front.",
